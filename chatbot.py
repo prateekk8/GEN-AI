@@ -5,6 +5,9 @@ from llama_index.llms.openai import OpenAI
 from llama_index.core.settings import Settings
 from llama_index.core.chat_engine.types import ChatMode
 from llama_index.embeddings.openai import OpenAIEmbedding
+from llama_index.core.memory import ChatMemoryBuffer
+
+memory = ChatMemoryBuffer.from_defaults(token_limit=3000)
 
 #embedding_model = OpenAIEmbedding(model="text-embedding-3-small")
 # Set your OpenAI API key
@@ -48,7 +51,7 @@ def main():
     question = st.chat_input("Start a Conversation")
 
     if "chat_engine" not in st.session_state:
-        st.session_state.chat_engine = index.as_chat_engine(chat_mode=ChatMode.CONDENSE_QUESTION, verbose=True)
+        st.session_state.chat_engine = index.as_chat_engine(chat_mode=ChatMode.CONDENSE_QUESTION, memory=memory,verbose=True)
     # Add a sidebar with the chatbot image
 
 
